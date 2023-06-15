@@ -30,4 +30,13 @@ router.post("/login",mw.validatePayload,mw.validateLogin,(req,res,next)=>{
     }
 });
 
+router.get("/delete",(req,res,next)=>{
+    try {
+        usersModel.deleteUser(req.body.username);
+        res.json({message:"Silme işlemi başarılı"});
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router;

@@ -15,6 +15,12 @@ defaultUsers.forEach(x=>{allUsers.push(x)});
 function getAllUsers(){
     return allUsers;
 }
+function deleteUser(username){
+    return Promise.resolve(()=>{
+        let index = allUsers.findIndex(x=>x.username == username);
+        allUsers.splice(index,1);
+    })
+}
 function insert(user){
     user.user_id = generateId();
     allUsers.push(user);
@@ -22,11 +28,13 @@ function insert(user){
 }
 function findUser(username,password){
     let existUser = allUsers.find(x=>x.username == username && x.password == password);
-    return existUser;
+    return Promise.resolve(existUser);
+    //return existUser;
 }
 
 module.exports = {
     getAllUsers,
     insert,
-    findUser
+    findUser,
+    deleteUser
 }
